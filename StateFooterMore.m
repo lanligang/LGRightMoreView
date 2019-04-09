@@ -13,6 +13,7 @@
 {
 	self =  [super init];
 	if (self) {
+		self.canLeftBounds = YES;
 		self.state = LgNormalState;
 		self.backgroundColor = [UIColor clearColor];
 		_stateLable = [UILabel new];
@@ -34,8 +35,15 @@
 {
 	[super contentOffsetDidChange:change];
 	[self changeFrame];
+	//不显示左边界状态
+	if (!self.canLeftBounds) {
+		if (_currentScrollView.contentOffset.x < 0) {
+			CGPoint offSet = _currentScrollView.contentOffset;
+			offSet.x = 0;
+			_currentScrollView.contentOffset = offSet;
+		}
+	}
 }
-
 -(void)panStateDidChange:(NSDictionary *)change
 {
 	[super panStateDidChange:change];
@@ -51,14 +59,14 @@
 -(void)changeFrame
 {
 	CGRect f = self.frame;
-	CGFloat containt_w = (_currentCollectionView.contentSize.width >= _currentCollectionView.bounds.size.width)?_currentCollectionView.contentSize.width:_currentCollectionView.bounds.size.width;
+	CGFloat containt_w = (_currentScrollView.contentSize.width >= _currentScrollView.bounds.size.width)?_currentScrollView.contentSize.width:_currentScrollView.bounds.size.width;
 
-	f.size.width = _currentCollectionView.bounds.origin.x - containt_w + _currentCollectionView.bounds.size.width;
+	f.size.width = _currentScrollView.bounds.origin.x - containt_w + _currentScrollView.bounds.size.width;
 	if (f.size.width <= right_more_w) {
 		f.size.width = right_more_w;
 		self.state = LgNormalState;
 	}
-	f.size.height = _currentCollectionView.bounds.size.height;
+	f.size.height = _currentScrollView.bounds.size.height;
 	f.origin.y = 0;
 	f.origin.x = containt_w;
 	self.frame = f;

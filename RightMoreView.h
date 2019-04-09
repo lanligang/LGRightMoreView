@@ -7,12 +7,11 @@
 
 #import <UIKit/UIKit.h>
 
-
 static float right_more_w = 40.0f;
 
 @interface RightMoreView : UIView {
 	//当前的collectionView
-	__weak UICollectionView *_currentCollectionView;
+	__weak UIScrollView *_currentScrollView;
 	//滑动手势
 	__weak UIPanGestureRecognizer * _pan;
 	//关联SEL 的对象
@@ -30,6 +29,9 @@ typedef NS_ENUM(NSInteger, LgRighMoreState) {
 
 //默认状态下是否可以显示右侧部分 默认是不显示的
 @property(nonatomic,assign)BOOL canShowRight;
+
+	//默认是开启的      |- can show y/n - [ ] - (|
+@property(nonatomic,assign)BOOL canLeftBounds;
 
 //用于添加方法
 -(void)addTargert:(id)target andSelect:(SEL)selecor;

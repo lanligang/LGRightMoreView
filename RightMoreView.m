@@ -13,36 +13,36 @@
 {
 	//移除旧的 添加新的
 	[self removeKvo];
-	if (newSuperview&& [newSuperview isKindOfClass:[UICollectionView class]]) {
-		_currentCollectionView = (UICollectionView *)newSuperview;
-		[_currentCollectionView setAlwaysBounceHorizontal:YES];
-		UIEdgeInsets edg = _currentCollectionView.contentInset;
+	if (newSuperview&& [newSuperview isKindOfClass:[UIScrollView class]]) {
+		_currentScrollView = (UIScrollView *)newSuperview;
+		[_currentScrollView setAlwaysBounceHorizontal:YES];
+		UIEdgeInsets edg = _currentScrollView.contentInset;
 		edg.right = (_canShowRight)?right_more_w:0;
-		_currentCollectionView.contentInset = edg;
-		_pan = _currentCollectionView.panGestureRecognizer;
-		self.bounds = (CGRect){0,0,right_more_w,_currentCollectionView.frame.size.height};
+		_currentScrollView.contentInset = edg;
+		_pan = _currentScrollView.panGestureRecognizer;
 		[self addKvo];
+		self.bounds = (CGRect){0,0,right_more_w,_currentScrollView.frame.size.height};
 	}else{
 		if (newSuperview == nil) {
-			UIEdgeInsets edg = _currentCollectionView.contentInset;
+			UIEdgeInsets edg = _currentScrollView.contentInset;
 			edg.right = 0;
-			_currentCollectionView.contentInset = edg;
+			_currentScrollView.contentInset = edg;
 		}
 	}
 }
 -(void)removeKvo
 {
-	if (_currentCollectionView&&_pan) {
-		[_currentCollectionView removeObserver:self forKeyPath:@"bounds" context:nil];
-		[_currentCollectionView removeObserver:self forKeyPath:@"contentOffset" context:nil];
+	if (_currentScrollView&&_pan) {
+		[_currentScrollView removeObserver:self forKeyPath:@"bounds" context:nil];
+		[_currentScrollView removeObserver:self forKeyPath:@"contentOffset" context:nil];
 		[_pan removeObserver:self forKeyPath:@"state" context:nil];
 	}
 }
 -(void)addKvo
 {
-	if (_currentCollectionView&&_pan) {
-		[_currentCollectionView addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-		[_currentCollectionView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+	if (_currentScrollView&&_pan) {
+		[_currentScrollView addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+		[_currentScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 		[_pan addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 	}
 }
@@ -73,25 +73,27 @@
 {
 	[super setHidden:hidden];
 	if (hidden) {
-		UIEdgeInsets edg = _currentCollectionView.contentInset;
+		UIEdgeInsets edg = _currentScrollView.contentInset;
 		edg.right = 0;
-		_currentCollectionView.contentInset = edg;
+		_currentScrollView.contentInset = edg;
 	}else{
-		UIEdgeInsets edg = _currentCollectionView.contentInset;
+		UIEdgeInsets edg = _currentScrollView.contentInset;
 		edg.right = (_canShowRight)?right_more_w:0;
-		_currentCollectionView.contentInset = edg;
+		_currentScrollView.contentInset = edg;
 	}
 }
 
 -(void)setCanShowRight:(BOOL)canShowRight
 {
 	_canShowRight = canShowRight;
-	if (_currentCollectionView) {
-		UIEdgeInsets edg = _currentCollectionView.contentInset;
+	if (_currentScrollView) {
+		UIEdgeInsets edg = _currentScrollView.contentInset;
 		edg.right = (_canShowRight)?right_more_w:0;
-		_currentCollectionView.contentInset = edg;
+		_currentScrollView.contentInset = edg;
 	}
 }
+
+
 
 
 @end
