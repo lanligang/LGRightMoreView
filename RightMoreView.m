@@ -33,8 +33,8 @@
 -(void)removeKvo
 {
 	if (_currentScrollView&&_pan) {
-		[self.superView removeObserver:self forKeyPath:@"bounds" context:nil];
-		[self.superView removeObserver:self forKeyPath:@"contentOffset" context:nil];
+		[self.superview removeObserver:self forKeyPath:@"bounds" context:nil];
+		[self.superview removeObserver:self forKeyPath:@"contentOffset" context:nil];
 		[_pan removeObserver:self forKeyPath:@"state" context:nil];
 	}
 }
