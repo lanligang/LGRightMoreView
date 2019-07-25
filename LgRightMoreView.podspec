@@ -14,7 +14,7 @@ s.platform     = :ios
 s.platform     = :ios, "8.0"
 
 
-s.source       = { :git => "https://github.com/lanligang/LGRightMoreView.git", :tag => "1.00"}
+s.source       = { :git => "https://github.com/lanligang/LGRightMoreView.git", :tag => s.version}
 
 
 s.source_files  = "LGRightMoreView/**/*.{h,m}"
