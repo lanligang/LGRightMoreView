@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 
-s.name         = "LgRightMoreView" 
+s.name         = "LGRightMoreView" 
 s.version      = "1.00"  
 s.summary      = "ICollectionView 右侧滑动可以push 到下一个控制器组件"
 
