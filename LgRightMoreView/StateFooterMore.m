@@ -19,7 +19,7 @@
 		_stateLable = [UILabel new];
 		_stateLable.numberOfLines = 0;
 		_stateLable.textColor = [UIColor whiteColor];
-		_stateLable.text = @"滑动查看更多";
+		_stateLable.text = @"滑\n动\n查\看\n更\n多";
 		 CGSize size = [_stateLable sizeThatFits:CGSizeMake(20, CGFLOAT_MAX)];
 		_stateLable.bounds = (CGRect){0,0,size};
 		[self addSubview:_stateLable];
@@ -93,7 +93,7 @@
 {
 	_state = state;
 	if (_state == LgLoardMoreState) {
-		_stateLable.text = @"查看更多……";
+		_stateLable.text = @"查\n看\n更\n多\n……\n";
 		if (_target && self.selecotor) {
 			//如果是被隐藏状态不调用绑定的方法
 			if (self.hidden) return;
@@ -104,9 +104,9 @@
 #pragma clang diagnostic pop
 		}
 	}else if (_state == LgWillLoardMoreState){
-		_stateLable.text = @"松手查看更多";
+		_stateLable.text = @"松\n手\n查\n看\n更\n多\n";
 	}else if (_state == LgNormalState){
-		_stateLable.text = @"滑动查看更多";
+		_stateLable.text = @"滑\n动\n查\n看\n更\n多\n";
 	}
 }
 - (void)drawRect:(CGRect)rect{
